@@ -139,6 +139,7 @@ function App() {
         {/* <HandleBalanceConfig /> */}
         <Message />
         <InputField insertType="add" />
+        <InputField insertType="subtract" />
         {/* <ViewLayout>
         
           </ViewLayout> */}
