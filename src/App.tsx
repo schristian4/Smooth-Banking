@@ -1,188 +1,147 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useEffect } from "react";
+import InputBalance from "./components/InputBalance";
+import ViewLayout from "./components/ViewLayout";
+import "./App.css";
 
-import './App.css';
-
+interface InsertMethodProps {
+  insertType: string;
+}
 
 function App() {
+  const [balance, setBalance] = useState<number>(0);
+  const [inputValue, setInputValue] = useState<number>(0);
+  const [method, setMethod] = useState<string>("");
 
-  interface SubtractBalanceShape {
-    eventHandleSubtract: (value: number) => void;
-  }
-
-  const SubtractBalance = ({ eventHandleSubtract }: SubtractBalanceShape) => {
-    const [value, setValue] = useState<number>(0)
-    function triggerEvent() {
-      eventHandleSubtract(value)
-    }
-    return (
-      <div className='input-wrapper'>
-        <p>Subtract Balance</p>
-        <input
-          type="number"
-          title="Budget"
-          name="balance"
-          pattern="[0-9]*"
-          value={value}
-          onChange={(e) =>
-            setValue((v: any) =>
-              e.target.validity.valid ? e.target.value : v
-            )
-          }
-        />
-        <button onClick={triggerEvent}>Submit</button>
-      </div>
-    )
-  }
-  
-  interface AddBalanceShape {
-    eventHandleAdd: (value: number) => void;
-  }
-
-  const AddBalance = ({ eventHandleAdd }: AddBalanceShape) => {
-    const [value, setValue] = useState<number>(0); 
-
-    function triggerEvent() {
-      eventHandleAdd(value)
-    }
-    console.log(value)
-    return (
-      <div className='input-wrapper'>
-        <p>Add Balance</p>
-        <input
-          type="number"
-          title="Budget"
-          name="balance"
-          pattern="[0-9]*"
-          value={value}
-          onChange={(e) =>
-            setValue((v: any) =>
-              e.target.validity.valid ? e.target.value : v
-            )
-          }
-        />
-        <button onClick={triggerEvent}>Submit</button>
-      </div>
-    )
+  // const HandleBalanceConfig = () => {
+  //   if (balance === 0) {
+  //     return (
+  //       <>
+  //         <InputBalance
+  //           insertMethod=""
+  //           eventMethod={eventMethod}
+  //           eventHandle={eventHandle}
+  //           eventHandleConfig={eventHandleConfig}
+  //         />
+  //       </>
+  //     );
+  //   } else {
+  //     return (
+  //       <>
+  //         <InputBalance
+  //           insertMethod="add"
+  //           eventMethod={eventMethod}
+  //           eventHandle={eventHandle}
+  //           eventHandleConfig={eventHandleConfig}
+  //         />
+  //         <InputBalance
+  //           insertMethod="subtract"
+  //           eventMethod={eventMethod}
+  //           eventHandle={eventHandle}
+  //           eventHandleConfig={eventHandleConfig}
+  //         />
+  //       </>
+  //     );
+  //   }
+  // };
+  interface InsertMethods {
+    insertType: string;
+    eventMethod(value: string): void;
+    eventHandler(value: number): void;
+    eventHandleConfig(value: number): void;
   }
 
-  interface ConfigBalanceShape {
-    eventHandleConfig: (value: number) => void;
-  }
-
-  const ConfigBalance = ({ eventHandleConfig }: ConfigBalanceShape) => {
-    const [value, setValue] = useState<number>(0)
-    function triggerEvent() {
-      eventHandleConfig(value)
-    }
-    return (
-      <div className='input-wrapper'>
-        <p>Set Initial Balance</p>
-        <input
-          type="number"
-          title="Budget"
-          name="balance"
-          pattern="[0-9]*"
-          value={value}
-          onChange={(e) =>
-            setValue((v: any) =>
-              e.target.validity.valid ? e.target.value : v
-            )
-          }
-        />
-        <button onClick={triggerEvent}>Submit</button>
-      </div>
-    )
-  }
-
-
-  const [balance, setBalance] = useState<string | number>(0)
-  const [add, setAdd] = useState<any>(0)
-  const [subtract, setSubtract] = useState<any>(0)
-  const [method, setMethod] = useState<string>('')
-  const [initialConfigStatus, setinitialConfigStatus] = useState('config')
-  const HandleBalanceConfig = () => {
-    if (balance === 0) {
-      return (<>
-        <ConfigBalance eventHandleConfig={eventHandleConfig} />
-      </>)
-    } else {
-      return (
-        <>
-          <AddBalance eventHandleAdd={eventHandleAdd} />
-          <SubtractBalance eventHandleSubtract={eventHandleSubtract} />
-        </>
-      )
-    }
-  }
-  
-  const eventHandleConfig = (value: number) => {
-    setBalance(value)
-  }
-  const eventHandleAdd = (value: number) => {
-    setAdd(value)
-    setMethod('add')
-   
-  }
-  const eventHandleSubtract = (value: number) => {
-    setSubtract(value)
-    setMethod('subtract') 
-  }
-  
-  const calculation = {
-    add: ()=>{
-      debugger
-      let temp: any = balance; 
-      temp = Number.parseInt(temp) + Number.parseInt(add)
-      setBalance(temp)
-      setMethod('')
+  const useInsertMethods = (): InsertMethods[] => [
+    {
+      insertType: "",
+      eventMethod: (value: string) => setMethod(value),
+      eventHandler: (value: number) => setInputValue(value),
+      eventHandleConfig: (value: number) => setBalance(value),
     },
-    subtract: ()=>{
-      debugger
-      let temp: any = balance; 
-      temp = Number.parseInt(temp) - Number.parseInt(subtract)
-      setBalance(temp)
-      setMethod('')
-    }
+  ];
+
+  interface InputBalanceProps {
+    insertType: string;
   }
-  function updateConfig(method: string){
-    
-    if(method === 'add'){ 
-      calculation.add()
+  const InputField = ({ insertType }: InputBalanceProps) => {
+    const insertProp = useInsertMethods();
+    return (
+      <>
+        <InputBalance
+          insertMethod={insertType}
+          eventMethod={insertProp[0].eventMethod}
+          eventHandle={insertProp[0].eventHandler}
+          eventHandleConfig={insertProp[0].eventHandleConfig}
+        />
+      </>
+    );
+  };
+
+  // const eventMethod = (value: string) => {
+  //   setMethod(value);
+  // };
+  // const eventHandle = (value: number) => {
+  //   setInputValue(value);
+  // };
+  // const eventHandleConfig = (value: number) => {
+  //   setBalance(value);
+  // };
+
+  const calculation = {
+    add: () => {
+      let temp: number = balance;
+      temp = temp + inputValue;
+      setBalance(temp);
+      setMethod("");
+    },
+    subtract: () => {
+      let temp: number = balance;
+      temp = temp - inputValue;
+      setBalance(temp);
+      setMethod("");
+    },
+  };
+
+  function updateConfig(method: string) {
+    if (method === "add") {
+      calculation.add();
     }
-    if(method === 'subtract'){
-      // review subtract methods
-      calculation.subtract()
+    if (method === "subtract") {
+      calculation.subtract();
     }
   }
   const Message = () => {
-    let messageContent = ''
-    let temp: any = balance
-    let fontColor =''
-    if(parseInt(temp) < 0){
-      messageContent = "Overdraft Alert you have have a negative Balance"
-      fontColor = 'red'
+    let messageContent = "";
+    let temp: any = balance;
+    let fontColor = "";
+    if (parseInt(temp) < 0) {
+      messageContent = "Overdraft Alert you have have a negative Balance";
+      fontColor = "red";
+    } else {
+      messageContent = "";
+      fontColor = "";
     }
-    else {
-      messageContent = ""
-      fontColor = ''
-    }
-    return(
+    return (
       <>
-        <p style={{color: fontColor}}>{messageContent}</p>
+        <p style={{ color: fontColor }}>{messageContent}</p>
       </>
-    )
-  }
-  useMemo(() => {
-    updateConfig(method)
-  }, [method])
-  
+    );
+  };
+
+  useEffect(() => {
+    updateConfig(method);
+  }, [method]);
+
   return (
     <div className="App">
       <h1>Smooth Banking</h1>
       <header className="App-header">
         Current Balance: {balance}
-        <HandleBalanceConfig />
-        <Message/>
+        {/* <HandleBalanceConfig /> */}
+        <Message />
+        <InputField insertType="add" />
+        {/* <ViewLayout>
+        
+          </ViewLayout> */}
       </header>
     </div>
   );
