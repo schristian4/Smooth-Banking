@@ -44,7 +44,6 @@ const Login = ({
       ...tempArray.map((x, i) => ({ [x.username]: i }))
     );
     let usernamePosition = usernameArray[user.username];
-
     if (usernamePosition !== undefined) {
       if (tempArray[usernamePosition].password === user.password) {
         eventLogin(userArray[usernamePosition]);

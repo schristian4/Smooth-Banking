@@ -5,7 +5,7 @@ interface InputBalanceProps {
   eventHandle: (value: number) => void;
 }
 
-const InputDepositWithdraw = ({
+const InputUpdateBalance = ({
   eventHandle,
   eventMethod,
 }: InputBalanceProps) => {
@@ -47,4 +47,4 @@ const InputDepositWithdraw = ({
   );
 };
 
-export default InputDepositWithdraw;
+export default InputUpdateBalance;

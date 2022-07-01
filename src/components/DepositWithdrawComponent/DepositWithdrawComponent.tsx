@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import InputDepositWithdraw from "./InputDepositWithdraw";
+import InputUpdateBalance from "../InputComponent/InputUpdateBalance";
 import "./InputStyle.css";
 interface DepositWithdrawCompProp {
   handleBalanceChange: (value: number) => void;
   balance: number;
 }
 
-const DepositWithdrawComp = ({
+const DepositWithdrawComponent = ({
   handleBalanceChange,
   balance,
 }: DepositWithdrawCompProp) => {
@@ -52,7 +52,7 @@ const DepositWithdrawComp = ({
     const insertProp = useInsertMethods();
     return (
       <>
-        <InputDepositWithdraw
+        <InputUpdateBalance
           eventMethod={insertProp[0].eventMethod}
           eventHandle={insertProp[0].eventHandler}
         />
@@ -72,4 +72,4 @@ const DepositWithdrawComp = ({
   );
 };
 
-export default DepositWithdrawComp;
+export default DepositWithdrawComponent;

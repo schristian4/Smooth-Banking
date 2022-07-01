@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import "./DashboardComponent.css";
 import Card from "../../components/Card/Card";
-import DepositWithdrawComp from "../../components/DepositWithdrawComponent/DepositWithdrawComp";
+import DepositWithdrawComponent from "../DepositWithdrawComponent/DepositWithdrawComponent";
 import { userProp } from "../../App";
 interface DashboardComponentProp{
   user: userProp;
@@ -48,7 +48,7 @@ function DashboardComponent({user, updateUserData}: DashboardComponentProp) {
       </div>
     
       <div className="dashboard-bottom-container">
-        <DepositWithdrawComp handleBalanceChange={handleBalanceChange} balance={balance}/>
+        <DepositWithdrawComponent handleBalanceChange={handleBalanceChange} balance={balance}/>
         <div>
           <p className="transaction">Transactions</p>
         </div>
