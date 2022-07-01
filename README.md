@@ -1,6 +1,6 @@
 ## Smooth Banking App - "Its Smooth"
 
-An application used to log and update balance for any user, built with React, JavaScript, and CSS.
+An application used to log and update balance for any user, built with React, Typescript, JavaScript, and CSS.
 
 ## Project Status
 -Add Transaction Log Component to Dashboard
