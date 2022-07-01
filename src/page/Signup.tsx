@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Home.css";
-import {RandomBalance, RandomDigits} from "../Math/RandomCalc";
+import {RandomBalance, RandomDigits} from "../Methods/methods"
 
 interface userProp {
   username: any;
