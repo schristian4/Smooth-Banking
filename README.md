@@ -1,9 +1,5 @@
 ## Smooth Banking App - "Its Smooth"
 
-#### Example:
-
-Smooth Banking 
-
 An application used to log and update balance for any user, built with React, JavaScript, and CSS.
 
 ## Project Status
