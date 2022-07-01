@@ -1,16 +1,17 @@
 import {useState, useEffect} from "react";
-import "./DashboardContainer.css";
+import "./DashboardComponent.css";
 import Card from "../../components/Card/Card";
 import DepositWithdrawComp from "../../components/DepositWithdrawComponent/DepositWithdrawComp";
 import Transactions from "../../components/TransactionsComponent/Transactions";
 import { userProp } from "../../App";
 
-interface DashboardContainerProp{
+interface DashboardComponentProp{
   user: userProp;
+
   updateUserData: (value: userProp)=>void
 } 
 // function DashboardContainer({user}: DashboardContainerProp) {
-function DashboardContainer({user, updateUserData}: DashboardContainerProp) {
+function DashboardComponent({user, updateUserData}: DashboardComponentProp) {
   const [updatedUser, setUpdatedUser] = useState(user)
   const [balance, setBalance] = useState<number>(user.balance)
   
@@ -45,19 +46,18 @@ function DashboardContainer({user, updateUserData}: DashboardContainerProp) {
       <div
         style={{ display: "flex", justifyContent: "center", padding: "1em" }}
       >
-        <Card balance={balance}/>
+        <Card balance={balance} digits={user.digits}/>
       </div>
     
       <div className="dashboard-bottom-container">
         <DepositWithdrawComp handleBalanceChange={handleBalanceChange} balance={balance}/>
-        {/* <div>
+        <div>
           <p className="transaction">Transactions</p>
-        </div> */}
-        {/* <Transactions /> */}
-        {/* <Transactions/> */}
+        </div>
+        <Transactions />
       </div>
     </div>
   );
 }
 
-export default DashboardContainer;
+export default DashboardComponent;

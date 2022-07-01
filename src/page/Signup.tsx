@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Home.css";
-import RandomBalance from "../components/Math/RandomBalance";
+import {RandomBalance, RandomDigits} from "../Math/RandomCalc";
 
 interface userProp {
   username: any;
   password: any;
   balance: any;
+  digits: any
 }
 
 interface eventMethodProps {
@@ -23,10 +24,12 @@ const Signup = ({ eventSignup }: eventMethodProps) => {
   const HandleSubmit = (e: any) => {
     e.preventDefault();
     let randomBalance = RandomBalance();
+    let randomDigits = RandomDigits();
     let userObject: userProp = {
       username: username,
       password: password,
       balance: randomBalance,
+      digits: randomDigits
     };
     setNewUser(userObject);
   };

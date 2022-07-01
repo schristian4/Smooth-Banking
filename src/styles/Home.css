@@ -27,6 +27,7 @@
 .btn-login{
     background-color: white;
     border: 1px solid #e632fe;
+    color:  #572bc9;
 }
 .center{
     display: flex;
@@ -94,12 +95,12 @@ h1{
     display: flex;
     justify-content: center;
 }
-span{
-    font-size: 0.75em;
-
-}
 .navigation-wrapper{
     display: flex;
     justify-content: space-around;
     width: 70%;
+}
+span{
+    font-size: 0.75em;
+
 }

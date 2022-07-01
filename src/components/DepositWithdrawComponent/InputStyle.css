@@ -25,12 +25,15 @@ input{
     border-radius: 1em;
     width: 47.5%;
     font-weight: bold;
+    color: white;
 }
 .btn-withdraw{
-    background-color: coral;
+    background-color: #20098f;
+
 }
 .btn-deposit{
-    background-color: coral;
+    background-color: #7504e6;
+    
 }
 .balance-text{
     font-size: 0.75em;

@@ -1,10 +1,16 @@
 import React from "react";
 import './card.css'
 interface CardProp {
-  balance: number
+  balance: number, 
+  digits?: number[]
 }
-const Card = ({balance}: CardProp) => {
-  
+const Card = ({balance, digits}: CardProp) => {
+
+    function RenderDigits(digitArray?:number[]){
+      if(digitArray){
+        return digitArray.map((x, i)=> {return(<div key={i}>{x}</div>)})
+      }
+    }
     return (
         <div className="card" >
           <div className="card-wrapper" > 
@@ -43,10 +49,7 @@ const Card = ({balance}: CardProp) => {
                   <div>•</div>
                 </div>
                 <div className="dot-digit-wrapper">
-                  <div>3</div>
-                  <div>7</div>
-                  <div>9</div>
-                  <div>6</div>
+                  {RenderDigits(digits)}
                 </div>
               </div>
             </div>

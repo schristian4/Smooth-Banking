@@ -4,7 +4,7 @@ function TransactionCard() {
     var withdrawCash = require('./icons/withdrawCash.png')
   return (
     <div className="transaction-wrapper">
-      <div className="icon-wrapper">
+      <div className="icon2-wrapper">
         <div className="icon">
             <img src={withdrawCash} alt="" />
         </div>

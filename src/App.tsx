@@ -4,8 +4,7 @@ import ViewLayout from "./components/ViewLayout";
 import DashboardPage from "./page/Dashboard";
 import Login from "./page/Login";
 import Signup from "./page/Signup";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import Protected from "./page/Protected";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./page/Home";
 import "./App.css";
 var iconlogout = require('./icons/logout.png')
@@ -16,15 +15,16 @@ let defaultUser = {
   username: "",
   password: "",
   balance: 0,
+  digits: []
 };
 export interface userProp {
   username: any;
   password: any;
   balance?: any;
+  digits?: number[]
 }
 function App() {
-  // let navigate = useNavigate();
-  // const [token, setToken] = useState();
+
   const [user, setUser] = useState<userProp>(defaultUser);
   const [newUser, setNewUser] = useState({});
   const [userArray, setUserArray] = useState<userProp[]>([]);

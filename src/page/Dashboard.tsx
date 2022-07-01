@@ -1,23 +1,34 @@
 import React from "react";
-import DashboardContainer from "../containers/DashboardLayoutConfiguration/DashboardContainer";
+import DashboardComponent from "../components/Dashboard/DashboardComponent";
+
 import { Link, } from "react-router-dom";
+
 interface userProp{
   username: any;
   password: any;
   balance?: any;
+  digits?: number[]
 }
 interface DashboardPageProp{
   user: userProp;
-  loginState: boolean
+  loginState: boolean; 
   updateUserData: (value: userProp)=> void
 } 
-const DashboardPage = ({user,updateUserData, loginState}: DashboardPageProp) => {
+const PleaseLogin =()=>{
+  return (
+    <div className="">
+      <p>You are logged out</p>
+      <p>Please navigate to homepage</p>
+      <Link to="/">Home</Link>
+    </div>
+  )
+}
+const Dashboard = ({user,updateUserData, loginState }: DashboardPageProp) => {
   return (
     <>
-      {loginState ? <DashboardContainer user={user} updateUserData={updateUserData}/> : <><Link to="/">Home</Link>
-      </>}
+      {loginState ? <DashboardComponent user={user} updateUserData={updateUserData}/> : <PleaseLogin/>}
     </>
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

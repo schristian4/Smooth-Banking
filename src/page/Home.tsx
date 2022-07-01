@@ -13,8 +13,8 @@ function Home() {
           <p>SMOOTH</p>
           <p>BANKING</p>
         </div>
-        <div className="center grid-area-L"><Link  className='btn btn-signup' to='/login'> Login</Link></div>
-        <div className="center grid-area-R"><Link  className='btn btn-login' to='/signup'> Sign up</Link></div>
+        <div className="center grid-area-L"><Link  className='btn btn-login' to='/login'> Login</Link></div>
+        <div className="center grid-area-R"><Link  className='btn btn-signup' to='/signup'> Sign up</Link></div>
     </div>
   )
 }

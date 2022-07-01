@@ -3,7 +3,7 @@ import './Transactions.css'
 import TransactionCard from './TransactionCard'
 function Transactions() {
   return (
-    <div>
+    <div className='transaction-container'>
       <TransactionCard/>
       <TransactionCard/>
       <TransactionCard/>
