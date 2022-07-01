@@ -1,0 +1,40 @@
+.transaction-wrapper {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr;
+  grid-template-rows: 1fr 0;
+  grid-template-areas: "icon date amount";
+  height: 35px;
+  padding: 3px;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.icon-wrapper {
+  display: flex;
+  /* justify-content: center; */
+  padding-left: 0.5em;
+}
+.icon {
+  width: 30px;
+}
+.amount-wrapper {
+  display: flex;
+  justify-content: end;
+}
+.amount{
+    font-size: 0.9em;
+    font-weight: bolder;
+}
+.name{
+    font-size: 0.75em;
+    font-weight: bold;
+}
+hr {
+  border: none;
+  border-top: 3px double #333;
+  color: gray;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}

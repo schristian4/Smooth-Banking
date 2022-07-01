@@ -1,150 +1,123 @@
-import { useState, useEffect } from "react";
-import InputBalance from "./components/InputBalance";
+import React, { useState, useEffect } from "react";
+
 import ViewLayout from "./components/ViewLayout";
+import DashboardPage from "./page/Dashboard";
+import Login from "./page/Login";
+import Signup from "./page/Signup";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Protected from "./page/Protected";
+import Home from "./page/Home";
 import "./App.css";
+var iconlogout = require('./icons/logout.png')
 
-interface InsertMethodProps {
-  insertType: string;
+export const UserContext = React.createContext({});
+// export const LoginState = React.createContext(false);
+let defaultUser = {
+  username: "",
+  password: "",
+  balance: 0,
+};
+export interface userProp {
+  username: any;
+  password: any;
+  balance?: any;
 }
-
 function App() {
-  const [balance, setBalance] = useState<number>(0);
-  const [inputValue, setInputValue] = useState<number>(0);
-  const [method, setMethod] = useState<string>("");
+  // let navigate = useNavigate();
+  // const [token, setToken] = useState();
+  const [user, setUser] = useState<userProp>(defaultUser);
+  const [newUser, setNewUser] = useState({});
+  const [userArray, setUserArray] = useState<userProp[]>([]);
+  const [userPosition, setUserPosition] = useState(0);
+  const [isLoggedIn, setisLoggedIn] = useState(false);
 
-  // const HandleBalanceConfig = () => {
-  //   if (balance === 0) {
-  //     return (
-  //       <>
-  //         <InputBalance
-  //           insertMethod=""
-  //           eventMethod={eventMethod}
-  //           eventHandle={eventHandle}
-  //           eventHandleConfig={eventHandleConfig}
-  //         />
-  //       </>
-  //     );
-  //   } else {
-  //     return (
-  //       <>
-  //         <InputBalance
-  //           insertMethod="add"
-  //           eventMethod={eventMethod}
-  //           eventHandle={eventHandle}
-  //           eventHandleConfig={eventHandleConfig}
-  //         />
-  //         <InputBalance
-  //           insertMethod="subtract"
-  //           eventMethod={eventMethod}
-  //           eventHandle={eventHandle}
-  //           eventHandleConfig={eventHandleConfig}
-  //         />
-  //       </>
-  //     );
-  //   }
-  // };
+  const logOut = () => {
+    setisLoggedIn(false);
+    setUser(defaultUser)
+    debugger;
+    // setUserPosition(0);
+  };
   interface InsertMethods {
-    insertType: string;
-    eventMethod(value: string): void;
-    eventHandler(value: number): void;
-    eventHandleConfig(value: number): void;
+    eventSignup(value: {}): void;
+    eventLogin(value: {}): void;
   }
-
   const useInsertMethods = (): InsertMethods[] => [
     {
-      insertType: "",
-      eventMethod: (value: string) => setMethod(value),
-      eventHandler: (value: number) => setInputValue(value),
-      eventHandleConfig: (value: number) => setBalance(value),
+      eventSignup: (value: {}) => setNewUser(value),
+      eventLogin: (value: userProp) => setUser(value),
     },
   ];
+  const insertProp = useInsertMethods();
 
-  interface InputBalanceProps {
-    insertType: string;
+  function handleNewUserConfig() {
+    let temp: any[] = userArray;
+    temp.push(newUser);
+    setUserArray(temp);
+    setNewUser({})
   }
-  const InputField = ({ insertType }: InputBalanceProps) => {
-    const insertProp = useInsertMethods();
-    return (
-      <>
-        <InputBalance
-          insertMethod={insertType}
-          eventMethod={insertProp[0].eventMethod}
-          eventHandle={insertProp[0].eventHandler}
-          eventHandleConfig={insertProp[0].eventHandleConfig}
-        />
-      </>
-    );
-  };
-
-  // const eventMethod = (value: string) => {
-  //   setMethod(value);
-  // };
-  // const eventHandle = (value: number) => {
-  //   setInputValue(value);
-  // };
-  // const eventHandleConfig = (value: number) => {
-  //   setBalance(value);
-  // };
-
-  const calculation = {
-    add: () => {
-      let temp: number = balance;
-      temp = temp + inputValue;
-      setBalance(temp);
-      setMethod("");
-    },
-    subtract: () => {
-      let temp: number = balance;
-      temp = temp - inputValue;
-      setBalance(temp);
-      setMethod("");
-    },
-  };
-
-  function updateConfig(method: string) {
-    if (method === "add") {
-      calculation.add();
-    }
-    if (method === "subtract") {
-      calculation.subtract();
-    }
+  function updateUserData(value: userProp){
+    setUser(value)
   }
-  const Message = () => {
-    let messageContent = "";
-    let temp: any = balance;
-    let fontColor = "";
-    if (parseInt(temp) < 0) {
-      messageContent = "Overdraft Alert you have have a negative Balance";
-      fontColor = "red";
-    } else {
-      messageContent = "";
-      fontColor = "";
-    }
-    return (
-      <>
-        <p style={{ color: fontColor }}>{messageContent}</p>
-      </>
-    );
-  };
-
+  function handleUserPosition(value: number) {
+    setUserPosition(value);
+  }
+  function handleLoginState(value: boolean) {
+    setisLoggedIn(value);
+  }
   useEffect(() => {
-    updateConfig(method);
-  }, [method]);
-
+    if (Object.keys(newUser).length > 0) {
+      handleNewUserConfig();
+    }
+  });
+  function renderPath() {
+    return isLoggedIn ? "/dashboard" : "/";
+  }
+  function RenderView() {
+    if (isLoggedIn === false) {
+      return (
+        <>
+          <Home />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <DashboardPage user={user} loginState={isLoggedIn} updateUserData={updateUserData}/>
+        </>
+      );
+    }
+  }
   return (
-    <div className="App">
-      <h1>Smooth Banking</h1>
-      <header className="App-header">
-        Current Balance: {balance}
-        {/* <HandleBalanceConfig /> */}
-        <Message />
-        <InputField insertType="add" />
-        <InputField insertType="subtract" />
-        {/* <ViewLayout>
-        
-          </ViewLayout> */}
-      </header>
-    </div>
+    <ViewLayout>
+      {isLoggedIn ? 
+      <div className="icon-wrapper">
+            <div onClick={logOut}><img className="logout-icon" src={iconlogout} alt="Logout Icon" /></div> 
+        </div>: <></>}
+      <BrowserRouter>
+        <Routes>
+          <Route path={renderPath()} element={<RenderView />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                eventLogin={insertProp[0].eventLogin}
+                userArray={userArray}
+                handleUserPosition={handleUserPosition}
+                handleLoginState={handleLoginState}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={<Signup eventSignup={insertProp[0].eventSignup} />}
+          />
+          <Route
+          path="/Dashboard"
+          element={ <DashboardPage user={user} loginState={isLoggedIn} updateUserData={updateUserData}/>}
+          />
+        </Routes>
+      </BrowserRouter>
+    </ViewLayout>
   );
 }
 

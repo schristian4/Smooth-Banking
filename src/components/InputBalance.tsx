@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 interface InputBalanceProps {
+  buttonArray?: string;
   insertMethod?: string;
   eventMethod: (value: string) => void;
   eventHandle: (value: number) => void;
@@ -16,7 +17,6 @@ const InputBalance = ({
   const [value, setValue] = useState<number>(0);
   function triggerEvent() {
     if (insertMethod === "add" || insertMethod === "subtract") {
-        debugger
       eventMethod(insertMethod);
       eventHandle(value);
     } else {
