@@ -15,7 +15,6 @@ interface userProp {
 interface eventMethodProps {
   eventLogin: (value: {}) => void;
   handleLoginState: (value: boolean) => void;
-  handleUserPosition: (value: number) => void;
   userArray: userProp[];
 }
 const Login = ({

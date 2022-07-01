@@ -2,15 +2,13 @@ import {useState, useEffect} from "react";
 import "./DashboardComponent.css";
 import Card from "../../components/Card/Card";
 import DepositWithdrawComp from "../../components/DepositWithdrawComponent/DepositWithdrawComp";
-import Transactions from "../../components/TransactionsComponent/Transactions";
 import { userProp } from "../../App";
-
 interface DashboardComponentProp{
   user: userProp;
 
   updateUserData: (value: userProp)=>void
 } 
-// function DashboardContainer({user}: DashboardContainerProp) {
+
 function DashboardComponent({user, updateUserData}: DashboardComponentProp) {
   const [updatedUser, setUpdatedUser] = useState(user)
   const [balance, setBalance] = useState<number>(user.balance)
@@ -54,7 +52,7 @@ function DashboardComponent({user, updateUserData}: DashboardComponentProp) {
         <div>
           <p className="transaction">Transactions</p>
         </div>
-        <Transactions />
+        {/* <Transactions /> */}
       </div>
     </div>
   );

@@ -28,14 +28,11 @@ function App() {
   const [user, setUser] = useState<userProp>(defaultUser);
   const [newUser, setNewUser] = useState({});
   const [userArray, setUserArray] = useState<userProp[]>([]);
-  const [userPosition, setUserPosition] = useState(0);
   const [isLoggedIn, setisLoggedIn] = useState(false);
 
   const logOut = () => {
     setisLoggedIn(false);
     setUser(defaultUser)
-    debugger;
-    // setUserPosition(0);
   };
   interface InsertMethods {
     eventSignup(value: {}): void;
@@ -55,12 +52,11 @@ function App() {
     setUserArray(temp);
     setNewUser({})
   }
+  
   function updateUserData(value: userProp){
     setUser(value)
   }
-  function handleUserPosition(value: number) {
-    setUserPosition(value);
-  }
+
   function handleLoginState(value: boolean) {
     setisLoggedIn(value);
   }
@@ -102,7 +98,6 @@ function App() {
               <Login
                 eventLogin={insertProp[0].eventLogin}
                 userArray={userArray}
-                handleUserPosition={handleUserPosition}
                 handleLoginState={handleLoginState}
               />
             }

@@ -1,6 +1,5 @@
 import React from "react";
 import DashboardComponent from "../components/Dashboard/DashboardComponent";
-
 import { Link, } from "react-router-dom";
 
 interface userProp{
@@ -14,12 +13,13 @@ interface DashboardPageProp{
   loginState: boolean; 
   updateUserData: (value: userProp)=> void
 } 
+
 const PleaseLogin =()=>{
   return (
-    <div className="">
-      <p>You are logged out</p>
+    <div className="logout-page">
+      <h3>You are logged out</h3>
       <p>Please navigate to homepage</p>
-      <Link to="/">Home</Link>
+      <div className="returnHome"><Link to="/">Home</Link></div>
     </div>
   )
 }
