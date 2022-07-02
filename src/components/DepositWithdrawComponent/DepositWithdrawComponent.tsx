@@ -3,11 +3,15 @@ import InputUpdateBalance from "../InputComponent/InputUpdateBalance";
 import "./InputStyle.css";
 interface DepositWithdrawCompProp {
   handleBalanceChange: (value: number) => void;
+  handleEventMethod: (value: string) => void;
+  handleInputAmount: (value: number) => void;
   balance: number;
 }
 
 const DepositWithdrawComponent = ({
   handleBalanceChange,
+  handleEventMethod,
+  handleInputAmount,
   balance,
 }: DepositWithdrawCompProp) => {
   const [inputValue, setInputValue] = useState<number>(0);
@@ -29,12 +33,16 @@ const DepositWithdrawComponent = ({
       let temp: number = balance;
       temp = temp + inputValue;
       handleBalanceChange(temp);
+      handleEventMethod("Deposit");
+      handleInputAmount(inputValue)
       setMethod("");
     },
     subtract: () => {
       let temp: number = balance;
       temp = temp - inputValue;
       handleBalanceChange(temp);
+      handleEventMethod("Withdraw");
+      handleInputAmount(inputValue)
       setMethod("");
     },
   };

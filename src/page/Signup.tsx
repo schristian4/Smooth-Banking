@@ -48,6 +48,7 @@ const Signup = ({ eventSignup }: eventMethodProps) => {
           <label>
             <p>Username</p>
             <input type="text" onChange={(e) => setUserName(e.target.value)} />
+            <p>Enter a username</p>
           </label>
           <label>
             <p>Password</p>

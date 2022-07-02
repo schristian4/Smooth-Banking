@@ -27,7 +27,7 @@ const Login = ({
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loginUser, setLoginUser] = useState({ username: "", password: "" });
-
+  const [usernameMessage, setUsernameMessage] = useState('')
   const HandleSubmit = (e: any) => {
     e.preventDefault();
     let userObject: LoginUserShape = {
@@ -52,9 +52,11 @@ const Login = ({
         handleLoginState(true);
       } else {
         console.log("Password Incorrect");
+        
       }
     } else {
       console.log("Username not found");
+      setUsernameMessage('notFound')
     }
   }
 
@@ -71,7 +73,8 @@ const Login = ({
         <div>
           <label>
             <p>Username</p>
-            <input type="text" onChange={(e) => setUserName(e.target.value)} />
+            <input className={usernameMessage}type="text" onChange={(e) => setUserName(e.target.value)} />
+            
           </label>
           <label>
             <p>Password</p>
@@ -94,7 +97,7 @@ const Login = ({
       <div className="center">
         <div className="navigation-wrapper">
           <span>
-            Don't have an account?
+            Don't have an account? 
             <Link to="/signup">Sign up</Link>
           </span>
 

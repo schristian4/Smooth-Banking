@@ -1,20 +1,27 @@
 import React from "react";
 import './TransactionCard.css' 
-function TransactionCard() {
-    var withdrawCash = require('./icons/withdrawCash.png')
+
+interface TransactionCardProp{
+  eventMethod: string, // Deposit or Withdraw
+  timestamp: string //29 JUN 2022 | 1:02
+  amount: number //$123.00
+}
+function TransactionCard({eventMethod, timestamp, amount}: TransactionCardProp ) {
+  var withdrawCash = require('./icons/withdrawCash.png')
+  var depositCash = require('./icons/depositCash.png')
   return (
     <div className="transaction-wrapper">
       <div className="icon2-wrapper">
         <div className="icon">
-            <img src={withdrawCash} alt="" />
+            {eventMethod ==="Withdraw"? <img src={withdrawCash} alt="" /> : <img src={depositCash} alt="" />}
         </div>
       </div>
       <div className="info-wrapper">
-        <div className="name">Deposit</div>
-        <div className="date"> 29 JUN 2022 | 1:02</div>
+        <div className="name">{eventMethod}</div>
+        <div className="date">{timestamp}</div>
       </div>
       <div className="amount-wrapper">
-        <div className="amount">$123.00</div>
+        <div className="amount">{eventMethod === "Withdraw"? '-': ''}${amount.toLocaleString("en-US")}</div>
       </div>
       <hr/>
     </div>

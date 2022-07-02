@@ -8,7 +8,7 @@
 .dashboardContainer {
   background-color: #080f26;
   color: white;
-  height: inherit;
+  height: 100%;
   padding-top: 2em;
 }
 
