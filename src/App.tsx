@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-import ViewLayout from "./components/ViewLayout";
-import DashboardPage from "./page/Dashboard";
-import Login from "./page/Login";
-import Signup from "./page/Signup";
+import ViewLayout from "./components/Views/ViewLayout";
+import DashboardPage from "./components/Pages/Dashboard";
+import Login from "./components/Pages/Login";
+import Signup from "./components/Pages/Signup";
+import ViewSwitch from "./components/Views/ViewHomeOrDashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./page/Home";
+import { InsertMethods, userProp } from './libs/component';
+
+
+
+// import Home from "./components/page/Home";
 import "./App.css";
 var iconlogout = require('./icons/logout.png')
 
@@ -17,98 +22,77 @@ let defaultUser = {
   balance: 0,
   digits: []
 };
-export interface userProp {
-  username: any;
-  password: any;
-  balance?: any;
-  digits?: number[]
-}
+
 function App() {
 
   const [user, setUser] = useState<userProp>(defaultUser);
   const [newUser, setNewUser] = useState({});
   const [userArray, setUserArray] = useState<userProp[]>([]);
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const logOut = () => {
-    setisLoggedIn(false);
-    setUser(defaultUser)
-  };
-  interface InsertMethods {
-    eventSignup(value: {}): void;
-    eventLogin(value: {}): void;
-  }
   const useInsertMethods = (): InsertMethods[] => [
     {
-      eventSignup: (value: {}) => setNewUser(value),
-      eventLogin: (value: userProp) => setUser(value),
+      //setState Variables
+      eventSetSignup: (value: {}) => setNewUser(value),
+      eventSetLogin: (value: userProp) => setUser(value),
+      eventIsLoggedIn: (value: boolean) => setIsLoggedIn(value),
+      //useState Variables
+      state_user: user,
+      state_newUser: newUser,
+      state_userArray: userArray,
+      state_isLoggedIn: isLoggedIn
     },
   ];
-  const insertProp = useInsertMethods();
 
+  const insertProp = useInsertMethods()[0];
+
+  const logOut = () => {
+    setIsLoggedIn(false);
+    setUser(defaultUser)
+  };
   function handleNewUserConfig() {
-    let temp: any[] = userArray;
+    let temp: any[] = [...userArray];
     temp.push(newUser);
     setUserArray(temp);
     setNewUser({})
   }
   
-  function updateUserData(value: userProp){
-    setUser(value)
+  function routePath() {
+    return isLoggedIn ? "/dashboard" : "/";
   }
 
-  function handleLoginState(value: boolean) {
-    setisLoggedIn(value);
-  }
   useEffect(() => {
     if (Object.keys(newUser).length > 0) {
       handleNewUserConfig();
     }
   });
-  function renderPath() {
-    return isLoggedIn ? "/dashboard" : "/";
-  }
-  function RenderView() {
-    if (isLoggedIn === false) {
-      return (
-        <>
-          <Home />
-        </>
-      );
-    } else {
-      return (
-        <>
-          <DashboardPage user={user} loginState={isLoggedIn} updateUserData={updateUserData}/>
-        </>
-      );
-    }
-  }
+
   return (
     <ViewLayout>
-      {isLoggedIn ? 
-      <div className="icon-wrapper">
-            <div onClick={logOut}><img className="logout-icon" src={iconlogout} alt="Logout Icon" /></div> 
-        </div>: <></>}
+      {isLoggedIn ?
+        <div className="icon-wrapper">
+          <div onClick={logOut}><img className="logout-icon" src={iconlogout} alt="Logout Icon" /></div>
+        </div> : <></>}
       <BrowserRouter>
         <Routes>
-          <Route path={renderPath()} element={<RenderView />} />
+          <Route path={routePath()} element={<ViewSwitch insertProp={insertProp} />} />
           <Route
             path="/login"
             element={
               <Login
-                eventLogin={insertProp[0].eventLogin}
+                eventSetLogin={insertProp.eventSetLogin}
+                eventIsLoggedIn={insertProp.eventIsLoggedIn}
                 userArray={userArray}
-                handleLoginState={handleLoginState}
               />
             }
           />
           <Route
             path="/signup"
-            element={<Signup eventSignup={insertProp[0].eventSignup} />}
+            element={<Signup eventSetSignup={insertProp.eventSetSignup} />}
           />
           <Route
-          path="/Dashboard"
-          element={ <DashboardPage user={user} loginState={isLoggedIn} updateUserData={updateUserData}/>}
+            path="/Dashboard"
+            element={<DashboardPage user={user} loginState={isLoggedIn} eventSetLogin={insertProp.eventSetLogin} />}
           />
         </Routes>
       </BrowserRouter>

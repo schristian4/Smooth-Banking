@@ -1,109 +1,156 @@
-.login-container{
-    background-color: black;
-    display: grid;
-    height: 100%;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 0.25fr 2fr;
-    grid-template-areas:
-      "top top"
-      "middle middle"
-      "bottomL bottomR"
-}
-.btn{
-    border: none;
-    padding: 1.5em;
-    margin: 0.25em;
-    font-size: 1rem;
-    border-radius: 1em;
-    width: 47.5%;
-    font-weight: bold;
-    height: fit-content;
-}
-.btn-signup{
-    background: #572bc9;
-    border: 1px solid #e632fe;
-    color: white;
-}
-.btn-login{
-    background-color: white;
-    border: 1px solid #e632fe;
-    color:  #572bc9;
-}
-.center{
+
+.center {
     display: flex;
     justify-content: center;
-    height: 100%;
-    margin-top: 2em;
+    align-items: center;
     text-align: center;
+    height: 100%;
 }
-.grid-area-L{
-    grid-area: bottomL;
 
-}
-.grid-area-R{
-    grid-area: bottomR;
-
-}
-a:link { text-decoration: none; }
-h1{
-   color: white 
-}
-.image-wrapper{
+.main-wrapper {
+    padding: 1em;
+    display: grid;
+    grid-area: bottom;
     width: 100%;
-    grid-area: top;
-    margin-top: 2em;
-}
-.landing-image{
-    width: 100%
-}
-.heading-smooth{
-    color: white;
-    font-weight: bolder;
-    font-size: 3em;
-    grid-area: middle;
-    padding-left: 1em;
-}
-.heading-smooth > p:nth-child(2){
-    padding-left: 1em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "topL topL"
+        "bottomL bottomR"
+
 }
 .content-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 20%;
+    padding: 15%;
+    border-radius: 3px;
+
 }
-.btn-submit{
-    border: 1px solid #e632fe !important; 
+.container {
+    color: white;
+    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.login-container {
+    display: flex;
+    height: 100%;
+    /* width: inherit; */
+    padding: 2em;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__group__Wrapper {
+    padding-bottom: 2em;
+}
+.form__group__Wrapper{
+    text-align: center;
+    color: red;
+}
+.heading-smooth {
+    color: white;
+    font-weight: bolder;
+    font-size: 3em;
+    grid-area: topL;
+}
+
+.heading-smooth>p:nth-child(2) {
+    /* padding-left: 1em; */
+}
+
+.btn-home {
+    height: 2em;
+    width: 100%;
+    margin: 0.25em;
+    padding: 1em;
+    border: none;
+    border-radius: 1em;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+.btn-signup {
+    background: #572bc9;
+    border: 1px solid #e632fe;
+    color: white;
+}
+
+.btn-login {
+    background-color: white;
+    border: 1px solid #e632fe;
+    color: #572bc9;
+}
+
+.grid-area-L {
+    grid-area: bottomL;
+
+}
+
+.grid-area-R {
+    grid-area: bottomR;
+
+}
+
+
+.image-wrapper {
+    width: 100%;
+    margin-top: 2em;
+
+}
+
+.landing-image {
+    width: 100%
+}
+
+.btn-blue {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    color: white;
+}
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-submit {
+    border: 1px solid #e632fe !important;
     background: #572bc9;
     color: white;
     padding: 1em;
     margin: 0.25em;
     font-size: 1rem;
     border-radius: 1em;
-    width: 47.5%;
+    /* width: 47.5%; */
     font-weight: bold;
 }
 
-.container{
-    color: white;
-    background: black;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.btn-wrapper{
-    display: flex;
-    justify-content: center;
-}
-.navigation-wrapper{
+.navigation-wrapper {
     display: flex;
     justify-content: space-around;
-    width: 70%;
 }
-span{
-    font-size: 0.75em;
+.navigation-wrapper>span {
+    display: flex;
+    height: 60px;
+    align-items: center;
 }
 
-.notFound::after{
-content: "Username not found, please re-enter";
+a:link {
+    text-decoration: none;
 }
+
+h1 {
+    color: white
+}
+span {
+    font-size: 1em;
+}
+/* 
+.notFound::after {
+    content: "Username not found, please re-enter";
+} */

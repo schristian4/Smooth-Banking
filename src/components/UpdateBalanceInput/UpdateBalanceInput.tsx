@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-interface InputBalanceProps {
+interface UpdateBalanceInputProps {
   eventMethod: (value: string) => void;
   eventHandle: (value: number) => void;
 }
-
-const InputUpdateBalance = ({
+const UpdateBalanceInput = ({
   eventHandle,
   eventMethod,
-}: InputBalanceProps) => {
+}: UpdateBalanceInputProps) => {
   const [value, setValue] = useState<number>(0);
   function triggerDepositEvent(method: string) {
     eventMethod(method);
@@ -41,10 +40,10 @@ const InputUpdateBalance = ({
       />
       <div className="button-wrapper">
         <button className="btn btn-withdraw" onClick={() => triggerEvent("subtract")}>Withdraw</button>
-        <button className="btn btn-deposit"onClick={() => triggerEvent("add")}>Deposit</button>
+        <button className="btn btn-deposit" onClick={() => triggerEvent("add")}>Deposit</button>
       </div>
     </div>
   );
 };
 
-export default InputUpdateBalance;
+export default UpdateBalanceInput;

@@ -10,15 +10,13 @@ export function RandomDigits() {
   }
   return x;
 }
-/*
-Get Date Configuration Object
-*/ 
 
+//Get Date Configuration Object
 let dateObj = new Date();
 let weekday = dateObj.toLocaleString("default", { weekday: "long" });
 export const dateConfig = {
   currentDate: () => {
-    let weekdayNumber: number = dateObj.getDate();
+    let weekdayNumber = dateObj.getDate();
     let shortMonthName = new Intl.DateTimeFormat("en-US", { month: "short" })
       .format;
     let shortName = shortMonthName(dateObj);
@@ -29,12 +27,10 @@ export const dateConfig = {
     let shortMonthName = new Intl.DateTimeFormat("en-US", { month: "short" })
       .format;
     let shortName = shortMonthName(dateObj);
-    let day = dateObj.getDate()
-    let year = dateObj.getFullYear()
-    let time = dateObj.toLocaleTimeString()
-    debugger
+    let day = dateObj.getDate();
+    let year = dateObj.getFullYear();
+    let time = dateObj.toLocaleTimeString();
     // EX: 29 JUN 2022 | 1:02
     return `${day} ${shortName} ${year} | ${time}`;
-
   },
 };

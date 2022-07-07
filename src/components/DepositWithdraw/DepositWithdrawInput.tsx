@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import InputUpdateBalance from "../InputComponent/InputUpdateBalance";
-import "./InputStyle.css";
+import InputUpdateBalance from "../UpdateBalanceInput/UpdateBalanceInput";
+import "./DepositWithdrawInput.css";
 interface DepositWithdrawCompProp {
-  handleBalanceChange: (value: number) => void;
-  handleEventMethod: (value: string) => void;
-  handleInputAmount: (value: number) => void;
+  eventSetInputAmount: (value: number) => void;
+  eventSetEventMethod: (value: string) => void;
+  eventSetBalance: (value: number) => void;
   balance: number;
 }
 
-const DepositWithdrawComponent = ({
-  handleBalanceChange,
-  handleEventMethod,
-  handleInputAmount,
+const DepositWithdrawInput = ({
+  eventSetInputAmount,
+  eventSetEventMethod,
+  eventSetBalance,
   balance,
 }: DepositWithdrawCompProp) => {
   const [inputValue, setInputValue] = useState<number>(0);
@@ -32,17 +32,17 @@ const DepositWithdrawComponent = ({
     add: () => {
       let temp: number = balance;
       temp = temp + inputValue;
-      handleBalanceChange(temp);
-      handleEventMethod("Deposit");
-      handleInputAmount(inputValue)
+      eventSetBalance(temp);
+      eventSetEventMethod("Deposit");
+      eventSetInputAmount(inputValue)
       setMethod("");
     },
     subtract: () => {
       let temp: number = balance;
       temp = temp - inputValue;
-      handleBalanceChange(temp);
-      handleEventMethod("Withdraw");
-      handleInputAmount(inputValue)
+      eventSetBalance(temp);
+      eventSetEventMethod("Withdraw");
+      eventSetInputAmount(inputValue)
       setMethod("");
     },
   };
@@ -80,4 +80,4 @@ const DepositWithdrawComponent = ({
   );
 };
 
-export default DepositWithdrawComponent;
+export default DepositWithdrawInput;

@@ -9,7 +9,10 @@
 }
 .transaction-container{
   padding: 0.5em;
+  overflow-y: scroll;
+  height: 400px;
 }
+
 img {
   max-width: 100%;
   max-height: 100%;

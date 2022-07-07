@@ -8,7 +8,7 @@ interface TransactionsProps{
   username: string
 }
 const Transactions = ({ transactionObject, username}: TransactionsProps) => {
-  function renderTransactions(username: string) {
+  const renderTransactions = (username: string) => {
     if (Object.keys(transactionObject).length > 0) {
       return transactionObject[username].map((x, i) => {
         return (
@@ -22,8 +22,8 @@ const Transactions = ({ transactionObject, username}: TransactionsProps) => {
       });
     }
   }
-
-  return <div className="transaction-container">{renderTransactions(username)}</div>;
+  let name = renderTransactions(username)
+  return <div className="transaction-container">{name}</div>;
 };
 
 export default Transactions;

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import "./DashboardComponent.css";
 import Card from "../../components/Card/Card";
-import DepositWithdrawComponent from "../DepositWithdrawComponent/DepositWithdrawComponent";
-import { userProp } from "../../App";
-import Transactions from "../TransactionsComponent/Transactions";
+import DepositWithdrawComponent from "../DepositWithdraw/DepositWithdrawInput";
+
+import Transactions from "../Transactions/Transactions";
 import { dateConfig } from "../../Methods/methods";
+import { userProp, DashboardMethods } from '../../libs/component';
+
 interface DashboardComponentProp {
   user: userProp;
-  updateUserData: (value: userProp) => void;
+  eventSetLogin: (value: userProp) => void;
 }
 
 interface TransactionsProps {
@@ -18,16 +20,21 @@ interface TransactionsProps {
 export interface transactionArrayShape {
   [key: string]: TransactionsProps[];
 }
-function DashboardComponent({ user, updateUserData }: DashboardComponentProp) {
+
+function DashboardComponent({ user, eventSetLogin }: DashboardComponentProp) {
   const [updatedUser, setUpdatedUser] = useState(user);
   const [balance, setBalance] = useState<number>(user.balance);
   const [eventMethod, setEventMethod] = useState<string>("");
   const [inputAmount, setInputAmount] = useState<number>(0);
   const [transactionArray, setTransactionArray] = useState<TransactionsProps[]>([])
   const [transactionObject, setTransactionObject] = useState<transactionArrayShape>({});
-
+  function updateCurrentUser() {
+    let temp: userProp = user;
+    temp.balance = balance;
+    setUpdatedUser(temp);
+  }
   function ConfigureTransactionObject() {
-    if(eventMethod !== ""){
+    if (eventMethod !== "") {
       let tempObject = {
         amount: 0,
         eventMethod: "",
@@ -36,34 +43,34 @@ function DashboardComponent({ user, updateUserData }: DashboardComponentProp) {
       tempObject.amount = inputAmount;
       tempObject.eventMethod = eventMethod;
       tempObject.timestamp = dateConfig.getTimestamp();
-      let currentTransactionArray: TransactionsProps[] = transactionArray
+
+      let currentTransactionArray: TransactionsProps[] = [...transactionArray]
       currentTransactionArray.push(tempObject)
       setTransactionArray(currentTransactionArray)
+      
       let currentTransactionObject: transactionArrayShape = transactionObject;
       currentTransactionObject[updatedUser.username] = currentTransactionArray;
+
       setTransactionObject(currentTransactionObject);
       setEventMethod("")
     }
   }
 
-  function handleInputAmount(value: number) {
-    setInputAmount(value);
-  }
-  function handleEventMethod(value: string) {
-    setEventMethod(value);
-  }
-  function handleBalanceChange(value: number) {
-    setBalance(value);
-  }
-  function updateCurrentUser() {
-    let temp = user;
-    temp.balance = balance;
-    setUpdatedUser(temp);
-  }
+  const useDashboardMethods = (): DashboardMethods[] => [
+    {
+
+      eventSetInputAmount: (value: number) => setInputAmount(value),
+      eventSetEventMethod: (value: string) => setEventMethod(value),
+      eventSetBalance: (value: number) => setBalance(value),
+    },
+  ];
+  const insertDashboardProps = useDashboardMethods()[0]
+  
+
   useEffect(() => {
     updateCurrentUser();
     ConfigureTransactionObject()
-    updateUserData(updatedUser);
+    eventSetLogin(updatedUser);
   }, [balance]);
 
   return (
@@ -78,10 +85,10 @@ function DashboardComponent({ user, updateUserData }: DashboardComponentProp) {
 
       <div className="dashboard-bottom-container">
         <DepositWithdrawComponent
-          handleBalanceChange={handleBalanceChange}
-          handleEventMethod={handleEventMethod}
+          eventSetInputAmount={insertDashboardProps.eventSetInputAmount}
+          eventSetEventMethod={insertDashboardProps.eventSetEventMethod}
+          eventSetBalance={insertDashboardProps.eventSetBalance}
           balance={balance}
-          handleInputAmount={handleInputAmount}
         />
         <div>
           <p className="transaction">Transactions</p>
