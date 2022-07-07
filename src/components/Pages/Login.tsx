@@ -65,7 +65,6 @@ const Login = ({
   }
 
   useEffect(() => {
-
     if (loginUser.username.length > 0) {
       handleUserLogin(loginUser);
     }

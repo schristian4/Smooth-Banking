@@ -28,7 +28,7 @@ const Signup = ({ eventSetSignup }: eventMethodProps) => {
       balance: randomBalance,
       digits: randomDigits
     };
-    const validateContent = ValidateSignupUsername(username, password)
+    let validateContent = ValidateSignupUsername(username, password)
     if(validateContent === true){
       setNewUser(userObject);
     }
