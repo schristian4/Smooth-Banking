@@ -3,7 +3,7 @@
 An application used to log and update balance for any user, built with React, Typescript, JavaScript, and CSS. Each user will be created with a random balance. 
 
 ## Project Status
--Add Transaction Log Component to Dashboard
+-Clean Up UI
 
 ## Current Status:
 This project is currently in development. 
