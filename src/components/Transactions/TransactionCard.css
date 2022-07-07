@@ -10,6 +10,7 @@
 .transaction-container{
   padding: 0.5em;
   overflow-y: scroll;
+  -moz-scrollbars-vertical: scroll;
   height: 400px;
 }
 

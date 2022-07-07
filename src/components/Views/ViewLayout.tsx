@@ -16,7 +16,6 @@ export function useWindowDimensions() {
      const { width, height} = windowDimensions
       if(width > 400){
         setWindowDimensions({ width, height})
-        // return <div style={{ width: 400, height: '100%', position: "relative" }}>{children}</div>;
       }
       setWindowDimensions(getWindowDimensions());
     }
@@ -28,20 +27,14 @@ export function useWindowDimensions() {
 
 
 const ViewLayout = ({ children }: any) => {
-  const { width, height} = useWindowDimensions();
-  // useEffect(()=>{ 
-  // }, [height]);
+  const { width} = useWindowDimensions();
 
   if(width > 400){
     return <div style={{ width: 400, height: 'inherit', position: "relative" }}>{children}</div>;
   }
-  
-  
-  
-  else{
-    return <div style={{ width: width, height: '100%', position: "relative" }}>{children}</div>;
-  }
-  
 
+  else{
+    return <div style={{ width: width, height: 'inherit', position: "relative" }}>{children}</div>;
+  }
 };
 export default ViewLayout;
