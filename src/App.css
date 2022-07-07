@@ -28,7 +28,6 @@ body{
   width: 37px
 }
 .logout-page{
-    background: black;
     color: white;
     height: 100%;
     display: flex;
@@ -48,7 +47,9 @@ body{
     border: 1px solid #e632fe;
     color: white;
 }
-
+.returnHome > a {
+  color: white;
+}
 a{
   color: purple;
   align-items: center;
