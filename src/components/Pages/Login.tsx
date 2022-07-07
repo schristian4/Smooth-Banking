@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/Home.css";
 import { userProp } from '../../libs/component';
-import InputField from '../InputField'
+import InputField from '../InputField/InputField'
 
 interface LoginUserShape {
   username: string;
@@ -11,14 +11,12 @@ interface LoginUserShape {
 interface eventMethodProps {
   eventIsLoggedIn: (value: boolean) => void;
   eventSetLogin: (value: userProp) => void;
-  // handleLoginState: (value: boolean) => void;
   userArray: userProp[];
 }
 const Login = ({
   eventSetLogin,
   userArray,
   eventIsLoggedIn,
-  // handleLoginState,/
 }: eventMethodProps) => {
   let navigate = useNavigate();
 
@@ -26,7 +24,7 @@ const Login = ({
   const [password, setPassword] = useState("");
   const [loginUser, setLoginUser] = useState({ username: "", password: "" });
   const [alertMessage, setAlertMessage] = useState('')
-  // const [showErrorMessage, setShowHide] = useState(false)
+  
   
   const HandleSubmit = (e: any) => {
     e.preventDefault();

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { RandomBalance, RandomDigits } from "../../Methods/methods"
 import { userProp } from '../../libs/component';
-import InputField, {textValidations }  from '../InputField'
+import InputField, {textValidations }  from '../InputField/InputField'
 
 
 interface eventMethodProps {
