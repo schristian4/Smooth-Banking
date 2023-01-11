@@ -8,19 +8,6 @@ An application used to log and update balance for any user, built with React, Ty
 ## Current Status:
 This project is currently in development. 
 
-Installation:
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
-
-`npm install`  
-
-To Start Server:
-
-`npm start`  
-
-To Visit App:
-
-`localhost:3000/`
-
 ## Reflection
 
   - Incepted as a side project to update a users balance
